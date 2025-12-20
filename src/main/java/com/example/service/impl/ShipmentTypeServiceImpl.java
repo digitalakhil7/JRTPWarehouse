@@ -11,7 +11,7 @@ import com.example.repo.ShipmentRepository;
 import com.example.service.IShipmentTypeService;
 
 @Service
-public class ShipmentTypeImpl implements IShipmentTypeService {
+public class ShipmentTypeServiceImpl implements IShipmentTypeService {
 
 	@Autowired
 	private ShipmentRepository shipRepo;

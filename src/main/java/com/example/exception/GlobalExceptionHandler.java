@@ -23,6 +23,11 @@ public class GlobalExceptionHandler{
 		return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 	}
 	
+	@ExceptionHandler(OrderNotFoundException.class)
+	public ResponseEntity<String> handleOrderNotFoundException(OrderNotFoundException e){
+		return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+	}
+	
 	@ExceptionHandler(UomNullPointerException.class)
 	public ResponseEntity<String> handleShipmentNullPointerException(UomNullPointerException e){
 		return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

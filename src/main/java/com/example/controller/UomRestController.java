@@ -61,6 +61,14 @@ public class UomRestController {
 		return new ResponseEntity<>(uomService.getAllUom(), HttpStatus.OK);
 	}
 	
+	@GetMapping("/validate/{uomModel}")
+	public ResponseEntity<String> validateUom(@PathVariable String uomModel){
+		if(uomRepo.existsByUomModel(uomModel)) {
+			return new ResponseEntity<>("uomModel: EXISTS", HttpStatus.OK);
+		}
+		return new ResponseEntity<>("uomModel: AVAILABLE", HttpStatus.OK);
+	}
+	
 	@PutMapping("/update")
 	public ResponseEntity<String> updateUom(@RequestBody Uom uom){
 		uomService.updateUom(uom);

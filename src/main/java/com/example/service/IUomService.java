@@ -17,4 +17,6 @@ public interface IUomService {
 	
 	//delete
 	public void deleteUom(Integer id);
+	
+	public byte[] excelExport();
 }

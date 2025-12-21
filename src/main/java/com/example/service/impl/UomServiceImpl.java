@@ -49,4 +49,10 @@ public class UomServiceImpl implements IUomService {
 		uomRepo.deleteById(id);
 	}
 
+	@Override
+	public byte[] excelExport() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

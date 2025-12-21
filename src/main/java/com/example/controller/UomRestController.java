@@ -51,6 +51,11 @@ public class UomRestController {
 		return new ResponseEntity<>("Uom created with id: "+uomService.createUom(uom), HttpStatus.CREATED);
 	}
 	
+	@GetMapping("/findOne/{id}")
+	public ResponseEntity<Uom> getOneUom(@PathVariable Integer id){
+		return new ResponseEntity<>(uomService.getOneUom(id), HttpStatus.OK);
+	}
+	
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Uom>> getAllUom(){
 		return new ResponseEntity<>(uomService.getAllUom(), HttpStatus.OK);
@@ -141,7 +146,7 @@ public class UomRestController {
     	//write workbook to output stream
     	workbook.write(out);
     	
-    	//set workbook name
+    	//set workbook name and download
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentDisposition(ContentDisposition.attachment().filename("akhil.xlsx").build());
     	
@@ -171,7 +176,7 @@ public class UomRestController {
     	
     	document.close();
     	
-    	//set pdf name
+    	//set pdf name and download
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentDisposition(ContentDisposition.attachment().filename("akhil.pdf").build());
     	

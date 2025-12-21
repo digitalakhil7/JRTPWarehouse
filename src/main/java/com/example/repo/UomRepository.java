@@ -7,5 +7,5 @@ import com.example.model.Uom;
 
 @Repository
 public interface UomRepository extends JpaRepository<Uom, Integer> {
-
+	public boolean existsByUomModel(String uomModel);
 }

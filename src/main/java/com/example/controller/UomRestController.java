@@ -1,7 +1,9 @@
 package com.example.controller;
 
+import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -26,6 +28,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.model.Uom;
 import com.example.repo.UomRepository;
 import com.example.service.IUomService;
+import com.lowagie.text.Document;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 
 @RestController
 @RequestMapping("/uom")
@@ -113,5 +122,61 @@ public class UomRestController {
             return ResponseEntity.internalServerError().build();
         }
     }
+    
+    @GetMapping("/excelbasic")
+    public ResponseEntity<byte[]> downloadBasicExcel() throws IOException {
+    	
+    	ByteArrayOutputStream out = new ByteArrayOutputStream();
+    	
+    	Workbook workbook = new XSSFWorkbook();
+    	Sheet sheet = workbook.createSheet("sample1");
+    	Row row0 = sheet.createRow(0);
+    	row0.createCell(0).setCellValue("Name");
+    	row0.createCell(1).setCellValue("Age");
+    	
+    	Row row1 = sheet.createRow(1);
+    	row1.createCell(0).setCellValue("Akhil");
+    	row1.createCell(1).setCellValue("18");
+    	
+    	//write workbook to output stream
+    	workbook.write(out);
+    	
+    	//set workbook name
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentDisposition(ContentDisposition.attachment().filename("akhil.xlsx").build());
+    	
+		return new ResponseEntity<>(out.toByteArray(), headers, HttpStatus.OK);
+    }
+    
+	@GetMapping("/pdfbasic")
+    public ResponseEntity<byte[]> downloadPdf() {
+
+    	ByteArrayOutputStream out = new ByteArrayOutputStream();
+    	
+    	Document document = new Document(PageSize.A4);
+    	PdfWriter.getInstance(document, out);
+    	
+    	document.open();
+    	
+    	// add element to document
+    	Paragraph p = new Paragraph("first para");
+    	document.add(p);
+    	
+    	PdfPTable table = new PdfPTable(2);
+    	table.addCell("Name");
+    	table.addCell("Age");
+    	table.addCell("Akhil");
+    	table.addCell("18");
+    	document.add(table);
+    	
+    	document.close();
+    	
+    	//set pdf name
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentDisposition(ContentDisposition.attachment().filename("akhil.pdf").build());
+    	
+    	return new ResponseEntity<>(out.toByteArray(), headers, HttpStatus.OK);
+    }
+
 }
 

@@ -1,10 +1,9 @@
 package com.example.controller;
 
-import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -29,8 +28,6 @@ import com.example.model.Uom;
 import com.example.repo.UomRepository;
 import com.example.service.IUomService;
 import com.lowagie.text.Document;
-import com.lowagie.text.Element;
-import com.lowagie.text.Font;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfPTable;
@@ -60,6 +57,11 @@ public class UomRestController {
 	public ResponseEntity<List<Uom>> getAllUom(){
 		return new ResponseEntity<>(uomService.getAllUom(), HttpStatus.OK);
 	}
+	
+	@GetMapping("/findUomIdAndModel")
+    public ResponseEntity<Map<Integer,String>> getAllUomIdModel() {
+    	return new ResponseEntity<>(uomService.getUomIdAndModel(), HttpStatus.OK);
+    }
 	
 	@GetMapping("/validate/{uomModel}")
 	public ResponseEntity<String> validateUom(@PathVariable String uomModel){
@@ -190,6 +192,6 @@ public class UomRestController {
     	
     	return new ResponseEntity<>(out.toByteArray(), headers, HttpStatus.OK);
     }
-
+    
 }
 

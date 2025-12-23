@@ -2,6 +2,7 @@ package com.example.service.impl;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class UomServiceImpl implements IUomService {
 	
 	@Override
 	public Integer createUom(Uom uom) {
+		if(uomRepo.existsByUomModel(uom.getUomModel()))
+			throw new RuntimeException("UOM Model already exists");
 		return uomRepo.save(uom).getUomId();
 	}
 
@@ -53,6 +56,13 @@ public class UomServiceImpl implements IUomService {
 	public byte[] excelExport() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Map<Integer, String> getUomIdAndModel() {
+		List<Object[]> uomList = uomRepo.findAllUomIdAndModel();
+		return uomList.stream().collect(Collectors.toMap(ob-> Integer.valueOf(ob[0].toString()), 
+				ob-> String.valueOf(ob[1])));
 	}
 
 }

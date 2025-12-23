@@ -3,9 +3,8 @@ package com.example.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +13,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.example.model.Student;
-
 import tools.jackson.core.JacksonException;
-import tools.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -27,20 +23,17 @@ public class TestStudentRestController {
 	@Autowired
 	private MockMvc mockMvc;
 	
-	@Autowired
-	private ObjectMapper om;
+	String json = """
+			{
+				"sid": 1,
+			    "sname": "Akhil",
+			    "sfee": 60.0,
+			    "subjects": ["Java", "Vegan"]
+			}
+			""";
 	
 	@Test
 	public void testSaveStudent() throws JacksonException, Exception {
-		String json = """
-				{
-					"sid": 1,
-				    "sname": "Akhil",
-				    "sfee": 60.0,
-				    "subjects": ["Java", "Vegan"]
-				}
-				""";
-		
 		mockMvc.perform(post("/create")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json))
@@ -50,9 +43,18 @@ public class TestStudentRestController {
 	}
 	
 	@Test
-	public void testGetOneStudent() throws Exception{
-		mockMvc.perform(get("/findById/1")
-			   .contentType(MediaType.APPLICATION_JSON))
-			   .andExpect(status().isOk());
-	}
+	public void testGetAllStudents() throws JacksonException, Exception {
+		mockMvc.perform(get("/findAll")
+				.contentType(MediaType.APPLICATION_JSON))
+		        .andExpect(status().isOk())
+		        .andExpect(jsonPath("$").isArray());
+ 	}
+	
+//	@Test
+//	public void testGetOneStudent() throws Exception{
+//		mockMvc.perform(get("/findById/1")
+//			   .contentType(MediaType.APPLICATION_JSON))
+//			   .andExpect(status().isOk())
+//			   .andExpect(content().json(json));
+//	}
 }

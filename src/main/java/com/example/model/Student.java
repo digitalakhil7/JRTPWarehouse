@@ -11,11 +11,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "student_table")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -31,7 +31,7 @@ public class StudentRestController {
 	}
 	
 	@GetMapping("/findAll")
-	public ResponseEntity<List<Student>> getStudent(){
+	public ResponseEntity<List<Student>> getAllStudents(){
 		List<Student> allStudents = repo.findAll().stream().sorted(Comparator.comparing(Student::getSid).reversed()).collect(Collectors.toList());
 		return new ResponseEntity<>(allStudents, HttpStatus.OK);
 	}

@@ -41,4 +41,8 @@ public class Part {
 	@JoinColumn(name="uom_id_fk")
 	private Uom uom;
 	
+	@ManyToOne
+	@JoinColumn(name="order_id_fk")
+	private OrderMethod orderMethod;
+	
 }

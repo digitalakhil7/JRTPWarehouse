@@ -22,14 +22,17 @@ public class OrderMethod {
 	@Column(name="order_id")
 	private Integer orderId;
 	
+	@Column(name="order_mode")
+	private String orderMode;
+	
 	@Column(name="order_code")
 	private String orderCode;
 	
-	@Column(name="order_method")
-	private String orderMethod;
+	@Column(name="order_type")
+	private String orderType;
 	
 	@ElementCollection
-	@CollectionTable(name="orderaccept_table", joinColumns = @JoinColumn(name="order_id"))
+	@CollectionTable(name="orderaccept_table", joinColumns = @JoinColumn(name="order_id_fk"))
 	@Column(name="order_accept")
 	private List<String> orderAccept;
 	

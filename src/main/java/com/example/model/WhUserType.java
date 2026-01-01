@@ -20,10 +20,13 @@ public class WhUserType {
 	@Column(name="user_type")
 	private String whUserType;
 	
-	@Column(name="user_code")
+	@Column(name="user_code", unique=true)
 	private String whUserCode;
 	
-	@Column(name="email")
+	@Column(name="user_for")
+	private String whUserFor;
+	
+	@Column(name="email", unique=true)
 	private String whUserEmail;
 	
 	@Column(name="contact")

@@ -20,11 +20,11 @@ public class ShipmentType {
 	@Column(name="ship_mode")
 	private String shipMode;
 	
-	@Column(name="ship_code")
+	@Column(name="ship_code", unique = true)
 	private String shipCode;
 	
 	@Column(name="ship_isenabled")
-	private Boolean isShipmentEnabled;
+	private String isShipmentEnabled;
 	
 	@Column(name="ship_grade")
 	private String shipGrade;

@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.model.WhUserType;
 
@@ -25,4 +26,7 @@ public interface IWhUserTypeService {
 	
 	// validation
 	public boolean isEmailExist(String whUserEmail);
+	
+	// dynamic form
+	public Map<Integer, String> getAllWhIdAndWhUserCode(String whUserType);
 }

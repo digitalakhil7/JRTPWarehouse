@@ -1,6 +1,8 @@
 package com.example.service.impl;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class ShipmentTypeServiceImpl implements IShipmentTypeService {
 	
 	@Override
 	public Integer createShipmentType(ShipmentType shipmentType) {
+		if(shipRepo.existsByShipCode(shipmentType.getShipCode()))
+			throw new RuntimeException("Shipment code already exists");
 		return shipRepo.save(shipmentType).getShipId();
 	}
 
@@ -41,6 +45,12 @@ public class ShipmentTypeServiceImpl implements IShipmentTypeService {
 	public void deleteShipmentType(Integer id) {
 		getOneShipmentType(id);
 		shipRepo.deleteById(id);
+	}
+
+	@Override
+	public Map<Integer, String> getAllShipIdAndShipCode(String isShipmentEnabled) {
+		return shipRepo.findAllShipIdAndShipCode(isShipmentEnabled).stream().collect(Collectors.toMap(
+				ob->Integer.valueOf(ob[0].toString()), ob->String.valueOf(ob[1])));
 	}
 
 }

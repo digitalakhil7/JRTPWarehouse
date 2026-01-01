@@ -3,6 +3,8 @@ package com.example.service.impl;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -133,6 +135,12 @@ public class WhUserTypeServiceImpl implements IWhUserTypeService {
 	@Override
 	public boolean isEmailExist(String whUserEmail) {
 		return whRepo.existsByWhUserEmail(whUserEmail);
+	}
+
+	@Override
+	public Map<Integer, String> getAllWhIdAndWhUserCode(String whUserType) {
+		return whRepo.findAllWhIdAndWhUserCode(whUserType).stream().collect(Collectors.toMap(
+				ob->Integer.valueOf(ob[0].toString()), ob->String.valueOf(ob[1])));
 	}
 
 }

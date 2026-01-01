@@ -19,7 +19,7 @@ import com.example.service.IShipmentTypeService;
 
 @RestController
 @RequestMapping("/ship")
-public class ShipmentController {
+public class ShipmentRestController {
 	
 	@Autowired
 	private IShipmentTypeService shipService;

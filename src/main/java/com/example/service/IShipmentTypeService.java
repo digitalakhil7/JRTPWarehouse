@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.model.ShipmentType;
 
@@ -17,4 +18,7 @@ public interface IShipmentTypeService {
 	
 	//delete
 	public void deleteShipmentType(Integer id);
+	
+	// dynamic form
+	public Map<Integer,String> getAllShipIdAndShipCode(String isShipmentEnabled);
 }
